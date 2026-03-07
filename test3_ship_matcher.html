@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Test 3 Ship Matcher</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .question { margin-bottom: 15px; }
+  .button { margin-top: 20px; padding: 10px 20px; }
+  #results { margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<h1>Test 3 – Ship Matcher</h1>
+
+<div class="question">
+  <label>1. What is your budget?</label><br>
+  <select id="budget">
+    <option value="Budget">Budget</option>
+    <option value="Mid">Mid</option>
+    <option value="Luxury">Luxury</option>
+  </select>
+</div>
+
+<div class="question">
+  <label>2. What type/vibe of holiday do you want? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="vibes" multiple size="4">
+    <option value="Family">Family</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Relaxation">Relaxation</option>
+    <option value="Party">Party</option>
+  </select>
+</div>
+
+<div class="question">
+  <label>3. What ship size do you prefer?</label><br>
+  <select id="size">
+    <option value="Small">Small</option>
+    <option value="Medium">Medium</option>
+    <option value="Large">Large</option>
+    <option value="Mega">Mega</option>
+  </select>
+</div>
+
+<div class="question">
+  <label>4. What matters most on board? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="amenities" multiple size="6">
+    <option value="Pools">Pools</option>
+    <option value="Spa">Spa</option>
+    <option value="Shows">Shows</option>
+    <option value="Bars">Bars</option>
+    <option value="Adventure Park">Adventure Park</option>
+    <option value="Kids Club">Kids Club</option>
+  </select>
+</div>
+
+<button class="button" onclick="calculateScores()">Find My Perfect Ship</button>
+
+<div id="results"></div>
+
+<script>
+const ships = [
+  {
+    name: "Celebrity Millennium",
+    budget: "Luxury",
+    vibes: ["Relaxation", "Adventure"],
+    size: "Large",
+    amenities: ["Pools", "Spa", "Shows", "Bars"]
+  },
+  {
+    name: "MSC Divina",
+    budget: "Mid",
+    vibes: ["Family", "Relaxation"],
+    size: "Large",
+    amenities: ["Pools", "Shows", "Kids Club", "Bars"]
+  },
+  {
+    name: "Mariner of the Seas",
+    budget: "Mid",
+    vibes: ["Adventure", "Family"],
+    size: "Large",
+    amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"]
+  }
+];
+
+function getSelectedOptions(selectId) {
+  const sel = document.getElementById(selectId);
+  return Array.from(sel.selectedOptions).map(opt => opt.value);
+}
+
+function scoreShip(ship, budget, vibes, size, amenities) {
+  let total = 0;
+  // Single-choice
+  total += ship.budget === budget ? 1 : 0;
+  total += ship.size === size ? 1 : 0;
+  // Multiple-choice fraction matches
+  total += ship.vibes.filter(v => vibes.includes(v)).length / (vibes.length || 1);
+  total += ship.amenities.filter(a => amenities.includes(a)).length / (amenities.length || 1);
+  return total;
+}
+
+function calculateScores() {
+  const budget = document.getElementById("budget").value;
+  const vibes = getSelectedOptions("vibes");
+  const size = document.getElementById("size").value;
+  const amenities = getSelectedOptions("amenities");
+
+  const scored = ships.map(ship => {
+    return { ship, score: scoreShip(ship, budget, vibes, size, amenities) };
+  }).sort((a,b) => b.score - a.score);
+
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "<h2>Top Ships:</h2>";
+  scored.forEach(s => {
+    resultsDiv.innerHTML += `<p>${s.ship.name} – Score: ${s.score.toFixed(2)}/4</p>`;
+  });
+}
+</script>
+
+</body>
+</html>
