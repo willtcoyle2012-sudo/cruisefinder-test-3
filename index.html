@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Test 3 Ship Matcher</title>
+<title>Test 3 – Ship Matcher</title>
 <style>
   body { font-family: sans-serif; padding: 20px; }
   .question { margin-bottom: 15px; }
-  .button { margin-top: 20px; padding: 10px 20px; }
+  .button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
   #results { margin-top: 30px; }
 </style>
 </head>
@@ -59,64 +59,8 @@
 
 <div id="results"></div>
 
-<script>
-const ships = [
-  {
-    name: "Celebrity Millennium",
-    budget: "Luxury",
-    vibes: ["Relaxation", "Adventure"],
-    size: "Large",
-    amenities: ["Pools", "Spa", "Shows", "Bars"]
-  },
-  {
-    name: "MSC Divina",
-    budget: "Mid",
-    vibes: ["Family", "Relaxation"],
-    size: "Large",
-    amenities: ["Pools", "Shows", "Kids Club", "Bars"]
-  },
-  {
-    name: "Mariner of the Seas",
-    budget: "Mid",
-    vibes: ["Adventure", "Family"],
-    size: "Large",
-    amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"]
-  }
-];
-
-function getSelectedOptions(selectId) {
-  const sel = document.getElementById(selectId);
-  return Array.from(sel.selectedOptions).map(opt => opt.value);
-}
-
-function scoreShip(ship, budget, vibes, size, amenities) {
-  let total = 0;
-  // Single-choice
-  total += ship.budget === budget ? 1 : 0;
-  total += ship.size === size ? 1 : 0;
-  // Multiple-choice fraction matches
-  total += ship.vibes.filter(v => vibes.includes(v)).length / (vibes.length || 1);
-  total += ship.amenities.filter(a => amenities.includes(a)).length / (amenities.length || 1);
-  return total;
-}
-
-function calculateScores() {
-  const budget = document.getElementById("budget").value;
-  const vibes = getSelectedOptions("vibes");
-  const size = document.getElementById("size").value;
-  const amenities = getSelectedOptions("amenities");
-
-  const scored = ships.map(ship => {
-    return { ship, score: scoreShip(ship, budget, vibes, size, amenities) };
-  }).sort((a,b) => b.score - a.score);
-
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "<h2>Top Ships:</h2>";
-  scored.forEach(s => {
-    resultsDiv.innerHTML += `<p>${s.ship.name} – Score: ${s.score.toFixed(2)}/4</p>`;
-  });
-}
-</script>
+<!-- Link to external JS -->
+<script src="ship_matcher.js"></script>
 
 </body>
 </html>
