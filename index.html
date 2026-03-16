@@ -2,71 +2,67 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cruise Finder</title>
+<title>Test 3 – Ship Matcher</title>
 <style>
-  body { font-family: Arial, sans-serif; padding: 20px; }
-  .ship { margin: 5px 0; padding: 5px; border: 1px solid #ccc; border-radius: 5px; }
-  .match { background-color: #e0ffe0; } /* Highlight matching ships */
-  .no-match { background-color: #f5f5f5; color: #aaa; } /* Grey out non-matches */
+  body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+  h1 { text-align: center; }
+  .question { margin-bottom: 20px; }
+  select { width: 100%; max-width: 400px; padding: 8px; }
+  .button { padding: 10px 20px; cursor: pointer; font-size: 16px; }
+  #results { margin-top: 30px; font-weight: bold; }
 </style>
 </head>
 <body>
 
-<h2>Cruise Finder</h2>
+<h1>Test 3 – Ship Matcher</h1>
 
-<label for="sizeFilter">Filter by size:</label>
-<select id="sizeFilter">
-  <option value="">All</option>
-  <option value="Small">Small</option>
-  <option value="Medium">Medium</option>
-  <option value="Large">Large</option>
-  <option value="Mega">Mega</option>
-</select>
+<div class="question">
+  <label>1. What is your budget?</label><br>
+  <select id="budget">
+    <option value="Budget">Budget</option>
+    <option value="Mid">Mid</option>
+    <option value="Luxury">Luxury</option>
+  </select>
+</div>
 
-<div id="shipList"></div>
+<div class="question">
+  <label>2. What type/vibe of holiday do you want? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="vibes" multiple size="4">
+    <option value="Family">Family</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Relaxation">Relaxation</option>
+    <option value="Party">Party</option>
+  </select>
+</div>
 
-<script>
-// Master ship list
-const ships = [
-  { name: "Celebrity Millennium", size: "Large" },
-  { name: "Mariner of the Seas", size: "Medium" },
-  { name: "Harmony of the Seas", size: "Mega" },
-  { name: "MSC Divina", size: "Large" },
-  { name: "Rhapsody of the Seas", size: "Medium" },
-  { name: "Ambience", size: "Small" },
-  { name: "Oasis of the Seas", size: "Mega" }
-];
+<div class="question">
+  <label>3. What ship size do you prefer?</label><br>
+  <select id="size">
+    <option value="Small">Small</option>
+    <option value="Medium">Medium</option>
+    <option value="Large">Large</option>
+    <option value="Mega">Mega</option>
+  </select>
+</div>
 
-// Function to render ships
-function renderShips(filter = "") {
-  const shipList = document.getElementById("shipList");
-  shipList.innerHTML = ""; // Clear previous list
+<div class="question">
+  <label>4. What matters most on board? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="amenities" multiple size="6">
+    <option value="Pools">Pools</option>
+    <option value="Spa">Spa</option>
+    <option value="Shows">Shows</option>
+    <option value="Bars">Bars</option>
+    <option value="Adventure Park">Adventure Park</option>
+    <option value="Kids Club">Kids Club</option>
+  </select>
+</div>
 
-  ships.forEach(ship => {
-    // Determine if this ship matches the filter
-    const isMatch = filter === "" || ship.size === filter;
+<button class="button" onclick="calculateScores()">Find My Perfect Ship</button>
 
-    // Create a div for the ship
-    const div = document.createElement("div");
-    div.classList.add("ship");
-    div.classList.add(isMatch ? "match" : "no-match");
+<div id="results"></div>
 
-    // Show ship name and optional note if no match
-    div.textContent = ship.name + (isMatch ? "" : " (does not match current filter)");
-
-    shipList.appendChild(div);
-  });
-}
-
-// Initial render (show all ships)
-renderShips();
-
-// Update when filter changes
-document.getElementById("sizeFilter").addEventListener("change", (e) => {
-  renderShips(e.target.value);
-});
-</script>
+<!-- Link to external JS -->
+<script src="ship_matcher.js"></script>
 
 </body>
 </html>
