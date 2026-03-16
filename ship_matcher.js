@@ -3,7 +3,7 @@ const ships = [
     name: "Celebrity Millennium",
     budget: "Luxury",
     vibes: ["Relaxation", "Adventure"],
-    size: "Large",
+    size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"]
   },
   {
@@ -22,28 +22,21 @@ const ships = [
   },
   {
     name: "Carnival Vista",
-    budget: "Mid",
+    budget: "Budget",
     vibes: ["Adventure", "Party"],
     size: "Large",
     amenities: ["Pools", "Bars", "Shows"]
   },
   {
-    name: "Disney Fantasy",
-    budget: "Luxury",
-    vibes: ["Family", "Relaxation"],
-    size: "Large",
-    amenities: ["Pools", "Spa", "Shows"]
-  },
-  {
     name: "Norwegian Epic",
     budget: "Mid",
     vibes: ["Party", "Adventure"],
-    size: "Mega",
+    size: "Large",
     amenities: ["Pools", "Bars", "Shows", "Adventure Park"]
   },
   {
     name: "Royal Caribbean Harmony of the Seas",
-    budget: "Luxury",
+    budget: "Mid ",
     vibes: ["Adventure", "Family"],
     size: "Mega",
     amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"]
