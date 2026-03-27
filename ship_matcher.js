@@ -74,7 +74,34 @@ function scoreShip(ship, budget, vibes, size, amenities) {
     score += amenityMatches / amenities.length;
   }
 
-  return score;
+function scoreShip(ship, budget, vibes, size, amenities) {
+
+  let score = 0;
+  let maxScore = 0;
+
+  // budget
+  maxScore += 1;
+  if (ship.budget === budget) score += 1;
+
+  // size
+  maxScore += 1;
+  if (ship.size === size) score += 1;
+
+  // vibes
+  if (vibes.length > 0) {
+    maxScore += 1;
+    let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
+    score += vibeMatches / vibes.length;
+  }
+
+  // amenities
+  if (amenities.length > 0) {
+    maxScore += 1;
+    let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
+    score += amenityMatches / amenities.length;
+  }
+
+  return (score / maxScore) * 100; // THIS is the key line
 }
 
 // main quiz function
@@ -99,8 +126,8 @@ function calculateScores() {
 
   results.innerHTML = "<h2>Top Matches</h2>";
 
-  scoredShips.forEach(ship => {
-    results.innerHTML += `<p>${ship.name} — Score: ${ship.score.toFixed(2)}</p>`;
-  });
+ scoredShips.forEach(ship => {
+  results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
+});
 
 }
