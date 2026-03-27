@@ -99,7 +99,7 @@ function calculateScores() {
 
   results.innerHTML = "<h2>Top Matches</h2>";
 
-  scoredShips.slice(0,3).forEach(ship => {
+  scoredShips.forEach(ship => {
     results.innerHTML += `<p>${ship.name} — Score: ${ship.score.toFixed(2)}</p>`;
   });
 
