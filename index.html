@@ -1,67 +1,68 @@
-// ship_matcher.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ship Matcher</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+  h1 { text-align: center; }
+  .question { margin-bottom: 20px; }
+  select { width: 100%; max-width: 400px; padding: 8px; }
+  .button { padding: 10px 20px; cursor: pointer; font-size: 16px; }
+  #results { margin-top: 30px; font-weight: bold; }
+</style>
+</head>
+<body>
 
-const ships = [
-  { name: "Celebrity Millennium", budget: "Luxury", vibes: ["Relaxation", "Adventure"], size: "Medium", amenities: ["Pools", "Spa", "Shows", "Bars"] },
-  { name: "Nieuw Statendam", budget: "Luxury", vibes: ["Relaxation", "Adventure"], size: "Medium", amenities: ["Bars", "Spa", "Shows"] },
-  { name: "MSC Divina", budget: "Mid", vibes: ["Family", "Relaxation"], size: "Large", amenities: ["Pools", "Shows", "Kids Club", "Bars"] },
-  { name: "Mariner of the Seas", budget: "Mid", vibes: ["Adventure", "Family"], size: "Large", amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"] },
-  { name: "Carnival Vista", budget: "Budget", vibes: ["Adventure", "Party"], size: "Large", amenities: ["Pools", "Bars", "Shows"] },
-  { name: "Norwegian Epic", budget: "Mid", vibes: ["Party", "Adventure"], size: "Large", amenities: ["Pools", "Bars", "Shows", "Adventure Park"] },
-  { name: "Royal Caribbean Harmony of the Seas", budget: "Mid", vibes: ["Adventure", "Family"], size: "Mega", amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"] }
-];
+<h1>Ship Matcher</h1>
 
-// Helper for multi-select fields
-function getSelectedOptions(id) {
-  const select = document.getElementById(id);
-  return Array.from(select.selectedOptions).map(o => o.value);
-}
+<div class="question">
+  <label>1. What is your budget?</label><br>
+  <select id="budget">
+    <option value="Budget">Budget</option>
+    <option value="Mid">Mid</option>
+    <option value="Luxury">Luxury</option>
+  </select>
+</div>
 
-// Scoring function (returns percentage)
-function scoreShip(ship, budget, vibes, size, amenities) {
-  let score = 0;
-  let maxScore = 0;
+<div class="question">
+  <label>2. What type/vibe of holiday do you want? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="vibes" multiple size="4">
+    <option value="Family">Family</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Relaxation">Relaxation</option>
+    <option value="Party">Party</option>
+  </select>
+</div>
 
-  // Budget
-  maxScore += 1;
-  if (ship.budget === budget) score += 1;
+<div class="question">
+  <label>3. What ship size do you prefer?</label><br>
+  <select id="size">
+    <option value="Small">Small</option>
+    <option value="Medium">Medium</option>
+    <option value="Large">Large</option>
+    <option value="Mega">Mega</option>
+  </select>
+</div>
 
-  // Size
-  maxScore += 1;
-  if (ship.size === size) score += 1;
+<div class="question">
+  <label>4. What matters most on board? (select multiple with Ctrl/Cmd)</label><br>
+  <select id="amenities" multiple size="6">
+    <option value="Pools">Pools</option>
+    <option value="Spa">Spa</option>
+    <option value="Shows">Shows</option>
+    <option value="Bars">Bars</option>
+    <option value="Adventure Park">Adventure Park</option>
+    <option value="Kids Club">Kids Club</option>
+  </select>
+</div>
 
-  // Vibes
-  if (vibes.length > 0) {
-    maxScore += 1;
-    score += ship.vibes.filter(v => vibes.includes(v)).length / vibes.length;
-  }
+<button class="button" onclick="calculateScores()">Find My Perfect Ship</button>
 
-  // Amenities
-  if (amenities.length > 0) {
-    maxScore += 1;
-    score += ship.amenities.filter(a => amenities.includes(a)).length / amenities.length;
-  }
+<div id="results"></div>
 
-  return (score / maxScore) * 100;
-}
+<!-- Link external JS -->
+<script src="ship_matcher.js"></script>
 
-// Main function
-function calculateScores() {
-  const budget = document.getElementById("budget").value;
-  const size = document.getElementById("size").value;
-  const vibes = getSelectedOptions("vibes");
-  const amenities = getSelectedOptions("amenities");
-
-  const scoredShips = ships.map(ship => ({
-    name: ship.name,
-    score: scoreShip(ship, budget, vibes, size, amenities)
-  }));
-
-  scoredShips.sort((a,b) => b.score - a.score);
-
-  const results = document.getElementById("results");
-  results.innerHTML = "<h2>Top Matches</h2>";
-
-  scoredShips.forEach(ship => {
-    results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
-  });
-}
+</body>
+</html>
