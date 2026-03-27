@@ -1,3 +1,4 @@
+// Ship data
 const ships = [
   {
     name: "Celebrity Millennium",
@@ -11,7 +12,7 @@ const ships = [
     budget: "Luxury",
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
-    amenities: ["Bars", "Spa", "Shows"]
+    amenities: ["Bars", "Spa", "Shows", "Bars"]
   },
   {
     name: "MSC Divina",
@@ -50,13 +51,13 @@ const ships = [
   }
 ];
 
-// Helper function for multi-select fields
+// Helper for multi-select fields
 function getSelectedOptions(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(o => o.value);
 }
 
-// Scoring logic (returns percentage)
+// Calculate score as a percentage
 function scoreShip(ship, budget, vibes, size, amenities) {
   let score = 0;
   let maxScore = 0;
@@ -72,37 +73,33 @@ function scoreShip(ship, budget, vibes, size, amenities) {
   // Vibes
   if (vibes.length > 0) {
     maxScore += 1;
-    let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
-    score += vibeMatches / vibes.length;
+    score += ship.vibes.filter(v => vibes.includes(v)).length / vibes.length;
   }
 
   // Amenities
   if (amenities.length > 0) {
     maxScore += 1;
-    let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
-    score += amenityMatches / amenities.length;
+    score += ship.amenities.filter(a => amenities.includes(a)).length / amenities.length;
   }
 
-  return (score / maxScore) * 100; // returns percentage
+  return (score / maxScore) * 100;
 }
 
-// Main quiz function
+// Main function to calculate and display results
 function calculateScores() {
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
   const vibes = getSelectedOptions("vibes");
   const amenities = getSelectedOptions("amenities");
 
-  // Calculate scores for all ships
   const scoredShips = ships.map(ship => ({
     name: ship.name,
     score: scoreShip(ship, budget, vibes, size, amenities)
   }));
 
-  // Sort descending
+  // Sort descending by score
   scoredShips.sort((a, b) => b.score - a.score);
 
-  // Display results
   const results = document.getElementById("results");
   results.innerHTML = "<h2>Top Matches</h2>";
 
