@@ -43,7 +43,7 @@ const ships = [
   },
   {
     name: "Royal Caribbean Harmony of the Seas",
-    budget: "Mid ",
+    budget: "Mid",
     vibes: ["Adventure", "Family"],
     size: "Mega",
     amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"]
