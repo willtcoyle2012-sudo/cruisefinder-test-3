@@ -6,6 +6,13 @@ const ships = [
     size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"]
   },
+   {
+    name: "Nieuw Statendam",
+    budget: "Luxury",
+    vibes: ["Relaxation", "Adventure"],
+    size: "Medium",
+    amenities: ["Bars", "Spa", "Shows", "Bars"]
+  },
   {
     name: "MSC Divina",
     budget: "Mid",
