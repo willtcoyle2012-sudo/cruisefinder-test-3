@@ -7,11 +7,11 @@ const ships = [
     amenities: ["Pools", "Spa", "Shows", "Bars"]
   },
   {
-   name: "Nieuw Statendam",
-   budget: "Luxury",
-  vibes: ["Relaxation", "Adventure"],
-  size: "Medium",
-  amenities: ["Bars", "Spa", "Shows"]
+    name: "Nieuw Statendam",
+    budget: "Luxury",
+    vibes: ["Relaxation", "Adventure"],
+    size: "Medium",
+    amenities: ["Bars", "Spa", "Shows"]
   },
   {
     name: "MSC Divina",
@@ -50,84 +50,63 @@ const ships = [
   }
 ];
 
-// helper function for multi-select fields
+// Helper function for multi-select fields
 function getSelectedOptions(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(o => o.value);
 }
 
-// scoring logic
+// Scoring logic (returns percentage)
 function scoreShip(ship, budget, vibes, size, amenities) {
-
-  let score = 0;
-
-  if (ship.budget === budget) score += 1;
-  if (ship.size === size) score += 1;
-
-  if (vibes.length > 0) {
-    let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
-    score += vibeMatches / vibes.length;
-  }
-
-  if (amenities.length > 0) {
-    let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
-    score += amenityMatches / amenities.length;
-  }
-
-function scoreShip(ship, budget, vibes, size, amenities) {
-
   let score = 0;
   let maxScore = 0;
 
-  // budget
+  // Budget
   maxScore += 1;
   if (ship.budget === budget) score += 1;
 
-  // size
+  // Size
   maxScore += 1;
   if (ship.size === size) score += 1;
 
-  // vibes
+  // Vibes
   if (vibes.length > 0) {
     maxScore += 1;
     let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
     score += vibeMatches / vibes.length;
   }
 
-  // amenities
+  // Amenities
   if (amenities.length > 0) {
     maxScore += 1;
     let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
     score += amenityMatches / amenities.length;
   }
 
-  return (score / maxScore) * 100; // THIS is the key line
+  return (score / maxScore) * 100; // returns percentage
 }
 
-// main quiz function
+// Main quiz function
 function calculateScores() {
-
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
-
   const vibes = getSelectedOptions("vibes");
   const amenities = getSelectedOptions("amenities");
 
-  const scoredShips = ships.map(ship => {
-    return {
-      name: ship.name,
-      score: scoreShip(ship, budget, vibes, size, amenities)
-    };
-  });
+  // Calculate scores for all ships
+  const scoredShips = ships.map(ship => ({
+    name: ship.name,
+    score: scoreShip(ship, budget, vibes, size, amenities)
+  }));
 
-  scoredShips.sort((a,b) => b.score - a.score);
+  // Sort descending
+  scoredShips.sort((a, b) => b.score - a.score);
 
+  // Display results
   const results = document.getElementById("results");
-
   results.innerHTML = "<h2>Top Matches</h2>";
 
- scoredShips.forEach(ship => {
-  results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
-});
-
+  scoredShips.forEach(ship => {
+    results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
+  });
 }
