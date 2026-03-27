@@ -1,4 +1,4 @@
-// Array of ships (including Nieuw Statendam)
+// Array of ships including Nieuw Statendam
 const ships = [
   {
     name: "Celebrity Millennium",
@@ -51,15 +51,14 @@ const ships = [
   }
 ];
 
-// helper function for multi-select fields
+// Helper for multi-select
 function getSelectedOptions(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(o => o.value);
 }
 
-// scoring logic
+// Scoring function
 function scoreShip(ship, budget, vibes, size, amenities) {
-
   let score = 0;
 
   if (ship.budget === budget) score += 1;
@@ -78,30 +77,24 @@ function scoreShip(ship, budget, vibes, size, amenities) {
   return score;
 }
 
-// main quiz function
+// Main function
 function calculateScores() {
-
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
-
   const vibes = getSelectedOptions("vibes");
   const amenities = getSelectedOptions("amenities");
 
-  const scoredShips = ships.map(ship => {
-    return {
-      name: ship.name,
-      score: scoreShip(ship, budget, vibes, size, amenities)
-    };
-  });
+  const scoredShips = ships.map(ship => ({
+    name: ship.name,
+    score: scoreShip(ship, budget, vibes, size, amenities)
+  }));
 
   scoredShips.sort((a,b) => b.score - a.score);
 
   const results = document.getElementById("results");
-
   results.innerHTML = "<h2>Top Matches</h2>";
 
   scoredShips.forEach(ship => {
     results.innerHTML += `<p>${ship.name} — Score: ${ship.score.toFixed(2)}</p>`;
   });
-
 }
