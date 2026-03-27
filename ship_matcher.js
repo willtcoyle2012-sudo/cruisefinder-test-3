@@ -1,4 +1,4 @@
-// Ship data
+// Array of ships (including Nieuw Statendam)
 const ships = [
   {
     name: "Celebrity Millennium",
@@ -44,66 +44,64 @@ const ships = [
   },
   {
     name: "Royal Caribbean Harmony of the Seas",
-    budget: "Mid",
+    budget: "Mid ",
     vibes: ["Adventure", "Family"],
     size: "Mega",
     amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"]
   }
 ];
 
-// Helper for multi-select fields
+// helper function for multi-select fields
 function getSelectedOptions(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(o => o.value);
 }
 
-// Calculate score as a percentage
+// scoring logic
 function scoreShip(ship, budget, vibes, size, amenities) {
+
   let score = 0;
-  let maxScore = 0;
 
-  // Budget
-  maxScore += 1;
   if (ship.budget === budget) score += 1;
-
-  // Size
-  maxScore += 1;
   if (ship.size === size) score += 1;
 
-  // Vibes
   if (vibes.length > 0) {
-    maxScore += 1;
-    score += ship.vibes.filter(v => vibes.includes(v)).length / vibes.length;
+    let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
+    score += vibeMatches / vibes.length;
   }
 
-  // Amenities
   if (amenities.length > 0) {
-    maxScore += 1;
-    score += ship.amenities.filter(a => amenities.includes(a)).length / amenities.length;
+    let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
+    score += amenityMatches / amenities.length;
   }
 
-  return (score / maxScore) * 100;
+  return score;
 }
 
-// Main function to calculate and display results
+// main quiz function
 function calculateScores() {
+
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
+
   const vibes = getSelectedOptions("vibes");
   const amenities = getSelectedOptions("amenities");
 
-  const scoredShips = ships.map(ship => ({
-    name: ship.name,
-    score: scoreShip(ship, budget, vibes, size, amenities)
-  }));
+  const scoredShips = ships.map(ship => {
+    return {
+      name: ship.name,
+      score: scoreShip(ship, budget, vibes, size, amenities)
+    };
+  });
 
-  // Sort descending by score
-  scoredShips.sort((a, b) => b.score - a.score);
+  scoredShips.sort((a,b) => b.score - a.score);
 
   const results = document.getElementById("results");
+
   results.innerHTML = "<h2>Top Matches</h2>";
 
   scoredShips.forEach(ship => {
-    results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
+    results.innerHTML += `<p>${ship.name} — Score: ${ship.score.toFixed(2)}</p>`;
   });
+
 }
