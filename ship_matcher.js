@@ -1,4 +1,4 @@
-// Array of ships (including Nieuw Statendam)
+//ships
 const ships = [
   {
     name: "Celebrity Millennium",
@@ -51,33 +51,33 @@ const ships = [
   }
 ];
 
-// Helper function for multi-select fields
+// helper function for multi select fields
 function getSelectedOptions(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(o => o.value);
 }
 
-// Scoring function (returns percentage)
+// scoring function (returns percentage)
 function scoreShip(ship, budget, vibes, size, amenities) {
   let score = 0;
   let maxScore = 0;
 
-  // Budget
+  // budget
   maxScore += 1;
   if (ship.budget === budget) score += 1;
 
-  // Size
+  // size
   maxScore += 1;
   if (ship.size === size) score += 1;
 
-  // Vibes
+  // vibes
   if (vibes.length > 0) {
     maxScore += 1;
     let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
     score += vibeMatches / vibes.length;
   }
 
-  // Amenities
+  // amenities
   if (amenities.length > 0) {
     maxScore += 1;
     let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
@@ -87,7 +87,7 @@ function scoreShip(ship, budget, vibes, size, amenities) {
   return (score / maxScore) * 100; // percentage
 }
 
-// Main function to calculate and display scores
+// calculate and display scores
 function calculateScores() {
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
@@ -101,7 +101,7 @@ function calculateScores() {
     };
   });
 
-  // Sort by highest match
+  // sort by highest match
   scoredShips.sort((a, b) => b.score - a.score);
 
   const results = document.getElementById("results");
