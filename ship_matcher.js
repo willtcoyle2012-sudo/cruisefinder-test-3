@@ -1,4 +1,3 @@
-//ships
 const ships = [
   {
     name: "Celebrity Millennium",
@@ -51,63 +50,64 @@ const ships = [
   }
 ];
 
-// helper function for multi select fields
+// Multi-select helper
 function getSelectedOptions(id) {
-  const select = document.getElementById(id);
-  return Array.from(select.selectedOptions).map(o => o.value);
+  return Array.from(document.getElementById(id).selectedOptions).map(o => o.value);
 }
 
-// scoring function (returns percentage)
+// Scoring system
 function scoreShip(ship, budget, vibes, size, amenities) {
   let score = 0;
   let maxScore = 0;
 
-  // budget
-  maxScore += 1;
-  if (ship.budget === budget) score += 1;
+  maxScore++;
+  if (ship.budget === budget) score++;
 
-  // size
-  maxScore += 1;
-  if (ship.size === size) score += 1;
+  maxScore++;
+  if (ship.size === size) score++;
 
-  // vibes
-  if (vibes.length > 0) {
-    maxScore += 1;
-    let vibeMatches = ship.vibes.filter(v => vibes.includes(v)).length;
-    score += vibeMatches / vibes.length;
+  if (vibes.length) {
+    maxScore++;
+    score += ship.vibes.filter(v => vibes.includes(v)).length / vibes.length;
   }
 
-  // amenities
-  if (amenities.length > 0) {
-    maxScore += 1;
-    let amenityMatches = ship.amenities.filter(a => amenities.includes(a)).length;
-    score += amenityMatches / amenities.length;
+  if (amenities.length) {
+    maxScore++;
+    score += ship.amenities.filter(a => amenities.includes(a)).length / amenities.length;
   }
 
-  return (score / maxScore) * 100; // percentage
+  return (score / maxScore) * 100;
 }
 
-// calculate and display scores
+// Main function
 function calculateScores() {
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
   const vibes = getSelectedOptions("vibes");
   const amenities = getSelectedOptions("amenities");
 
-  const scoredShips = ships.map(ship => {
-    return {
-      name: ship.name,
-      score: scoreShip(ship, budget, vibes, size, amenities)
-    };
-  });
+  const scoredShips = ships.map(ship => ({
+    name: ship.name,
+    score: scoreShip(ship, budget, vibes, size, amenities)
+  }));
 
-  // sort by highest match
   scoredShips.sort((a, b) => b.score - a.score);
 
   const results = document.getElementById("results");
-  results.innerHTML = "<h2>Top Matches</h2>";
+  results.innerHTML = "<h2>Results</h2>";
 
-  scoredShips.forEach(ship => {
-    results.innerHTML += `<p>${ship.name} — ${ship.score.toFixed(0)}% Match</p>`;
+  scoredShips.forEach((ship, index) => {
+
+    let level = "low";
+    if (ship.score >= 75) level = "high";
+    else if (ship.score >= 50) level = "medium";
+
+    results.innerHTML += `
+      <div class="ship ${level}">
+        ${index === 0 ? "<div class='top'>⭐ BEST MATCH</div>" : ""}
+        <strong>${ship.name}</strong><br>
+        ${ship.score.toFixed(0)}% Match
+      </div>
+    `;
   });
 }
