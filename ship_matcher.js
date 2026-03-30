@@ -4,49 +4,56 @@ const ships = [
     budget: "Luxury",
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
-    amenities: ["Pools", "Spa", "Shows", "Bars"]
+    amenities: ["Pools", "Spa", "Shows", "Bars"],
+    image: "" // <-- paste your ship image URL here
   },
   {
     name: "Nieuw Statendam",
     budget: "Luxury",
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
-    amenities: ["Bars", "Spa", "Shows", "Bars"]
+    amenities: ["Bars", "Spa", "Shows", "Bars"],
+    image: ""
   },
   {
     name: "MSC Divina",
     budget: "Mid",
     vibes: ["Family", "Relaxation"],
     size: "Large",
-    amenities: ["Pools", "Shows", "Kids Club", "Bars"]
+    amenities: ["Pools", "Shows", "Kids Club", "Bars"],
+    image: ""
   },
   {
     name: "Mariner of the Seas",
     budget: "Mid",
     vibes: ["Adventure", "Family"],
     size: "Large",
-    amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"]
+    amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"],
+    image: ""
   },
   {
     name: "Carnival Vista",
     budget: "Budget",
     vibes: ["Adventure", "Party"],
     size: "Large",
-    amenities: ["Pools", "Bars", "Shows"]
+    amenities: ["Pools", "Bars", "Shows"],
+    image: ""
   },
   {
     name: "Norwegian Epic",
     budget: "Mid",
     vibes: ["Party", "Adventure"],
     size: "Large",
-    amenities: ["Pools", "Bars", "Shows", "Adventure Park"]
+    amenities: ["Pools", "Bars", "Shows", "Adventure Park"],
+    image: ""
   },
   {
     name: "Royal Caribbean Harmony of the Seas",
     budget: "Mid",
     vibes: ["Adventure", "Family"],
     size: "Mega",
-    amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"]
+    amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"],
+    image: ""
   }
 ];
 
@@ -87,7 +94,7 @@ function calculateScores() {
   const amenities = getSelectedOptions("amenities");
 
   const scoredShips = ships.map(ship => ({
-    name: ship.name,
+    ...ship,
     score: scoreShip(ship, budget, vibes, size, amenities)
   }));
 
@@ -97,7 +104,6 @@ function calculateScores() {
   results.innerHTML = "<h2>Results</h2>";
 
   scoredShips.forEach((ship, index) => {
-
     let level = "low";
     if (ship.score >= 75) level = "high";
     else if (ship.score >= 50) level = "medium";
@@ -105,9 +111,16 @@ function calculateScores() {
     results.innerHTML += `
       <div class="ship ${level}">
         ${index === 0 ? "<div class='top'>⭐ BEST MATCH</div>" : ""}
+        ${ship.image 
+          ? `<img src="${ship.image}" alt="${ship.name}" style="width:100%; max-height:150px; object-fit:cover; border-radius:8px; margin-bottom:8px;">` 
+          : `<div style="width:100%; height:150px; background:#ccc; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; color:#555;">Image here</div>`}
         <strong>${ship.name}</strong><br>
         ${ship.score.toFixed(0)}% Match
       </div>
     `;
   });
+
+  if (!results.hasChildNodes()) {
+    results.innerHTML += "<p style='text-align:center; color:#555;'>No matching ships found.</p>";
+  }
 }
