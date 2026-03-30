@@ -3,22 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ship Matcher</title>
+<title>Cruise Finder</title>
+
 <style>
-  body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
-  h1 { text-align: center; }
-  .question { margin-bottom: 20px; }
-  select { width: 100%; max-width: 400px; padding: 8px; }
-  .button { padding: 10px 20px; cursor: pointer; font-size: 16px; }
-  #results { margin-top: 30px; font-weight: bold; }
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .question {
+    margin-bottom: 25px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+  }
+
+  .button {
+    background: #0077cc;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background: #005fa3;
+  }
+
+  #results {
+    margin-top: 30px;
+  }
+
+  .ship {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .high { border-left: 6px solid #4caf50; }
+  .medium { border-left: 6px solid #ff9800; }
+  .low { border-left: 6px solid #f44336; }
+
+  .top {
+    font-size: 12px;
+    color: #4caf50;
+    font-weight: bold;
+  }
 </style>
 </head>
+
 <body>
 
-<h1>Test 3 – Ship Matcher</h1>
+<div class="container">
+
+<h1>🚢 Cruise Finder</h1>
 
 <div class="question">
-  <label>1. What is your budget?</label><br>
+  <label>Budget</label><br>
   <select id="budget">
     <option value="Budget">Budget</option>
     <option value="Mid">Mid</option>
@@ -27,7 +94,7 @@
 </div>
 
 <div class="question">
-  <label>2. What type/vibe of holiday do you want? (select multiple with Ctrl/Cmd)</label><br>
+  <label>Holiday vibe (Ctrl/Cmd for multiple)</label><br>
   <select id="vibes" multiple size="4">
     <option value="Family">Family</option>
     <option value="Adventure">Adventure</option>
@@ -37,7 +104,7 @@
 </div>
 
 <div class="question">
-  <label>3. What ship size do you prefer?</label><br>
+  <label>Ship size</label><br>
   <select id="size">
     <option value="Small">Small</option>
     <option value="Medium">Medium</option>
@@ -47,7 +114,7 @@
 </div>
 
 <div class="question">
-  <label>4. What matters most on board? (select multiple with Ctrl/Cmd)</label><br>
+  <label>Amenities (Ctrl/Cmd)</label><br>
   <select id="amenities" multiple size="6">
     <option value="Pools">Pools</option>
     <option value="Spa">Spa</option>
@@ -62,7 +129,8 @@
 
 <div id="results"></div>
 
-<!-- External JS -->
+</div>
+
 <script src="ship_matcher.js"></script>
 
 </body>
