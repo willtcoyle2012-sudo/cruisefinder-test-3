@@ -57,7 +57,7 @@ const ships = [
   }
 ];
 
-// Multi-select helper
+// Get selected options from multi-selects
 function getSelectedOptions(id) {
   return Array.from(document.getElementById(id).selectedOptions).map(o => o.value);
 }
@@ -86,7 +86,7 @@ function scoreShip(ship, budget, vibes, size, amenities) {
   return (score / maxScore) * 100;
 }
 
-// Main function
+// Generate ship cards
 function calculateScores() {
   const budget = document.getElementById("budget").value;
   const size = document.getElementById("size").value;
@@ -101,26 +101,71 @@ function calculateScores() {
   scoredShips.sort((a, b) => b.score - a.score);
 
   const results = document.getElementById("results");
-  results.innerHTML = "<h2>Results</h2>";
+  results.innerHTML = "";
 
   scoredShips.forEach((ship, index) => {
-    let level = "low";
-    if (ship.score >= 75) level = "high";
-    else if (ship.score >= 50) level = "medium";
+    let borderColor = "border-red-500"; // low
+    if (ship.score >= 75) borderColor = "border-green-500"; // high
+    else if (ship.score >= 50) borderColor = "border-yellow-500"; // medium
 
-    results.innerHTML += `
-      <div class="ship ${level}">
-        ${index === 0 ? "<div class='top'>⭐ BEST MATCH</div>" : ""}
-        ${ship.image 
-          ? `<img src="${ship.image}" alt="${ship.name}" style="width:100%; max-height:150px; object-fit:cover; border-radius:8px; margin-bottom:8px;">` 
-          : `<div style="width:100%; height:150px; background:#ccc; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; color:#555;">Image here</div>`}
-        <strong>${ship.name}</strong><br>
-        ${ship.score.toFixed(0)}% Match
-      </div>
-    `;
+    const card = document.createElement("div");
+    card.className = `bg-white p-4 rounded-2xl shadow-lg border-4 ${borderColor} flex flex-col items-center`;
+
+    const img = document.createElement("img");
+    img.src = ship.image || "https://via.placeholder.com/300x150?text=Ship+Image";
+    img.alt = ship.name;
+    img.className = "w-full h-40 object-cover rounded-lg mb-3";
+
+    const name = document.createElement("strong");
+    name.textContent = ship.name;
+    name.className = "text-lg mb-2 text-center";
+
+    const score = document.createElement("span");
+    score.textContent = `${ship.score.toFixed(0)}% Match`;
+    score.className = "text-gray-600 mb-3";
+
+    const button = document.createElement("button");
+    button.textContent = "View More";
+    button.className = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition";
+    button.onclick = () => openModal(ship);
+
+    if (index === 0) {
+      const best = document.createElement("div");
+      best.textContent = "BEST MATCH";
+      best.className = "text-green-600 font-bold mb-2";
+      card.appendChild(best);
+    }
+
+    card.appendChild(img);
+    card.appendChild(name);
+    card.appendChild(score);
+    card.appendChild(button);
+
+    results.appendChild(card);
   });
 
-  if (!results.hasChildNodes()) {
-    results.innerHTML += "<p style='text-align:center; color:#555;'>No matching ships found.</p>";
+  if (scoredShips.length === 0) {
+    results.innerHTML = "<p class='text-center text-gray-500'>No matching ships found.</p>";
   }
+}
+
+// Modal functions
+function openModal(ship) {
+  const modal = document.getElementById("shipModal");
+  const content = document.getElementById("modalContent");
+  content.innerHTML = `
+    <img src="${ship.image || 'https://via.placeholder.com/400x200?text=Ship+Image'}" alt="${ship.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+    <h2 class="text-xl font-bold mb-2">${ship.name}</h2>
+    <p><strong>Vibes:</strong> ${ship.vibes.join(", ")}</p>
+    <p><strong>Size:</strong> ${ship.size}</p>
+    <p><strong>Amenities:</strong> ${ship.amenities.join(", ")}</p>
+    <div class="mt-4 text-center">
+      <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition inline-block">Book Now</a>
+    </div>
+  `;
+  modal.classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("shipModal").classList.add("hidden");
 }
