@@ -7,6 +7,8 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -16,74 +18,77 @@
   }
 </style>
 </head>
+
 <body class="min-h-screen flex flex-col items-center p-4">
 
-<!-- Header -->
-<header class="text-center mb-8">
-  <h1 class="text-4xl font-bold text-blue-700">Cruise Finder</h1>
-  <p class="text-gray-600 mt-2">Find your perfect cruise</p>
-</header>
+  <!-- Header -->
+  <header class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-blue-700">Cruise Finder</h1>
+    <p class="text-gray-600 mt-2">Find your perfect cruise</p>
+  </header>
 
-<!-- Form Section -->
-<section class="mb-8 w-full max-w-3xl bg-white p-6 rounded-2xl shadow-lg">
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <div>
-      <label class="font-bold">Budget</label>
-      <select id="budget" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
-        <option value="Budget">Budget</option>
-        <option value="Mid">Mid</option>
-        <option value="Luxury">Luxury</option>
-      </select>
+  <!-- Filter Form -->
+  <section class="mb-8 w-full max-w-3xl bg-white p-6 rounded-2xl shadow-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div>
+        <label class="font-bold">Budget</label>
+        <select id="budget" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
+          <option value="Budget">Budget</option>
+          <option value="Mid">Mid</option>
+          <option value="Luxury">Luxury</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold">Ship Size</label>
+        <select id="size" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+          <option value="Mega">Mega</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold">Holiday Vibe (Ctrl/Cmd for multiple)</label>
+        <select id="vibes" multiple size="4" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
+          <option value="Family">Family</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Relaxation">Relaxation</option>
+          <option value="Party">Party</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold">Amenities (Ctrl/Cmd)</label>
+        <select id="amenities" multiple size="6" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
+          <option value="Pools">Pools</option>
+          <option value="Spa">Spa</option>
+          <option value="Shows">Shows</option>
+          <option value="Bars">Bars</option>
+          <option value="Adventure Park">Adventure Park</option>
+          <option value="Kids Club">Kids Club</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label class="font-bold">Ship size</label>
-      <select id="size" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
-        <option value="Small">Small</option>
-        <option value="Medium">Medium</option>
-        <option value="Large">Large</option>
-        <option value="Mega">Mega</option>
-      </select>
+
+    <div class="mt-6 text-center">
+      <button onclick="calculateScores()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold shadow-lg transition">
+        Find My Perfect Ship
+      </button>
     </div>
-    <div>
-      <label class="font-bold">Holiday vibe (Ctrl/Cmd for multiple)</label>
-      <select id="vibes" multiple size="4" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
-        <option value="Family">Family</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Relaxation">Relaxation</option>
-        <option value="Party">Party</option>
-      </select>
-    </div>
-    <div>
-      <label class="font-bold">Amenities (Ctrl/Cmd)</label>
-      <select id="amenities" multiple size="6" class="w-full mt-2 p-2 border rounded-lg shadow-sm">
-        <option value="Pools">Pools</option>
-        <option value="Spa">Spa</option>
-        <option value="Shows">Shows</option>
-        <option value="Bars">Bars</option>
-        <option value="Adventure Park">Adventure Park</option>
-        <option value="Kids Club">Kids Club</option>
-      </select>
+  </section>
+
+  <!-- Results Section -->
+  <section id="results" class="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <!-- Ship cards injected by JS -->
+  </section>
+
+  <!-- Modal -->
+  <div id="shipModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="shipModalContent" class="bg-white p-8 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform translate-y-12 transition-transform duration-300">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold">&times;</button>
+      <div id="modalContent"></div>
     </div>
   </div>
 
-  <div class="mt-6 text-center">
-    <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold shadow-lg transition" onclick="calculateScores()">
-      Find My Perfect Ship
-    </button>
-  </div>
-</section>
-
-<!-- Results Grid -->
-<section id="results" class="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></section>
-
-<!-- Modal -->
-<div id="shipModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-  <div class="bg-white p-6 rounded-2xl max-w-md w-full relative">
-    <span onclick="closeModal()" class="absolute top-4 right-4 cursor-pointer text-xl">&times;</span>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<script src="ship_matcher.js"></script>
+  <script src="ship_matcher.js"></script>
 </body>
 </html>
