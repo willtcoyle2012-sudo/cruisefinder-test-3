@@ -13,7 +13,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Norwegian_Breakaway_Jan_20_2023.jpg/960px-Norwegian_Breakaway_Jan_20_2023.jpg",
+    image: "https://en.wikipedia.org/wiki/File:2023_Celebrity_Millennium_WM138.jpg",
     attractions: [
       "Celebrity Theater",
       "Solarium",
@@ -26,7 +26,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Bars", "Spa", "Shows"],
-    image: "",
+    image: "https://en.wikipedia.org/wiki/File:NIEUW_STATENDAM_(49895575701).jpg",
     attractions: [
       "Music Hall",
       "Retreat Spa",
@@ -39,7 +39,7 @@ const ships = [
     vibes: ["Family", "Relaxation"],
     size: "Large",
     amenities: ["Pools", "Shows", "Kids Club", "Bars"],
-    image: "",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MSC_Divina_a_Istanbul.JPG/960px-MSC_Divina_a_Istanbul.JPG",
     attractions: [
       "MSC Theater",
       "Aurea Spa",
@@ -52,7 +52,7 @@ const ships = [
     vibes: ["Adventure", "Family"],
     size: "Large",
     amenities: ["Pools", "Adventure Park", "Shows", "Bars", "Kids Club"],
-    image: "",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bahamas_Cruise_-_ship_exterior_-_June_2018_%283303%29.jpg/960px-Bahamas_Cruise_-_ship_exterior_-_June_2018_%283303%29.jpg",
     attractions: [
       "FlowRider Surf Simulator",
       "Adventure Ocean Kids Club",
@@ -65,7 +65,7 @@ const ships = [
     vibes: ["Adventure", "Party"],
     size: "Large",
     amenities: ["Pools", "Bars", "Shows"],
-    image: "",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/2017-03-29_CARNIVAL_VISTA_-_IMO_9692569%2C_in_Willemstad%2C_Cura%C3%A7ao.jpg/960px-2017-03-29_CARNIVAL_VISTA_-_IMO_9692569%2C_in_Willemstad%2C_Cura%C3%A7ao.jpg",
     attractions: [
       "SkyRide",
       "WaterWorks Park",
@@ -78,7 +78,7 @@ const ships = [
     vibes: ["Party", "Adventure"],
     size: "Large",
     amenities: ["Pools", "Bars", "Shows", "Adventure Park"],
-    image: "",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Norwegian_Breakaway_Jan_20_2023.jpg/960px-Norwegian_Breakaway_Jan_20_2023.jpg",
     attractions: [
       "The Waterfront Promenade",
       "Ropes Course & Zipline",
@@ -92,7 +92,7 @@ const ships = [
     vibes: ["Adventure", "Family"],
     size: "Mega",
     amenities: ["Pools", "Spa", "Shows", "Adventure Park", "Bars"],
-    image: "",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/RCCL_Harmony_of_the_Seas_%2850991506292%29.jpg/960px-RCCL_Harmony_of_the_Seas_%2850991506292%29.jpg",
     attractions: [
       "Ultimate Abyss Slide",
       "FlowRider",
