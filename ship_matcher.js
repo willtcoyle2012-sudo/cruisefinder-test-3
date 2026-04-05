@@ -13,7 +13,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"],
-    image: "",
+    image: "https://www.cruisemapper.com/images/ships/584-large-f5deaeeae1538fb6c45901d524ee2f98.jpg",
     attractions: [
       "Celebrity Theater",
       "Solarium",
