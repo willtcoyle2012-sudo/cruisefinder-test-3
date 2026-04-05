@@ -65,7 +65,7 @@ const ships = [
     vibes: ["Adventure", "Party"],
     size: "Large",
     amenities: ["Pools", "Bars", "Shows"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/2017-03-29_CARNIVAL_VISTA_-_IMO_9692569%2C_in_Willemstad%2C_Cura%C3%A7ao.jpg/960px-2017-03-29_CARNIVAL_VISTA_-_IMO_9692569%2C_in_Willemstad%2C_Cura%C3%A7ao.jpg",
+    image: "https://eatsleepcruise.com/wp-content/uploads/2025/07/Carnival-Vista-Cruise-Review-Feature.jpg.optimal.jpg",
     attractions: [
       "SkyRide",
       "WaterWorks Park",
