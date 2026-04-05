@@ -13,7 +13,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"],
-    image: "https://www.cruisemapper.com/images/ships/584-large-f5deaeeae1538fb6c45901d524ee2f98.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Norwegian_Breakaway_Jan_20_2023.jpg/960px-Norwegian_Breakaway_Jan_20_2023.jpg",
     attractions: [
       "Celebrity Theater",
       "Solarium",
