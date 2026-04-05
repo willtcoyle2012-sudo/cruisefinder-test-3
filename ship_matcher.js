@@ -13,7 +13,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Pools", "Spa", "Shows", "Bars"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/2023_Celebrity_Millennium_WM138.jpg/960px-2023_Celebrity_Millennium_WM138.jpg",
+    image: "https://www.wendywutours.co.uk/resource/upload/2563/cel-ml-blue-hull-aerial-4-banner.jpg.webp",
     attractions: [
       "Celebrity Theater",
       "Solarium",
@@ -26,7 +26,7 @@ const ships = [
     vibes: ["Relaxation", "Adventure"],
     size: "Medium",
     amenities: ["Bars", "Spa", "Shows"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/NIEUW_STATENDAM_%2849895575701%29.jpg/960px-NIEUW_STATENDAM_%2849895575701%29.jpg",
+    image: "https://res.cloudinary.com/cruiseimages/q_auto,f_auto,w_750,ar_4:3,c_fit/ship/1144214.jpg",
     attractions: [
       "Music Hall",
       "Retreat Spa",
